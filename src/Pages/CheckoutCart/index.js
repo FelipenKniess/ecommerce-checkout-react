@@ -15,19 +15,23 @@ const CheckoutCart = () => {
 
   const history = useHistory()
 
-  useEffect(async () => {
-    const { data } = await api.get('v2/5b15c4923100004a006f3c07')
-    setProductItems(data.items)
+  useEffect(() => {
+    getDataCart()
 
-    const { subTotal, shippingTotal, discount, total } = data
+    async function getDataCart() {
+      const { data } = await api.get('v2/5b15c4923100004a006f3c07')
+      setProductItems(data.items)
 
-    setInfoPayment({
-      subTotal,
-      shippingTotal,
-      discount,
-      total
-    })
-  }, [])
+      const { subTotal, shippingTotal, discount, total } = data
+
+      setInfoPayment({
+        subTotal,
+        shippingTotal,
+        discount,
+        total
+      })
+    }
+  }, [setInfoPayment])
 
   const handleSubmit = useCallback(() => {
     history.push('/checkout/payment')

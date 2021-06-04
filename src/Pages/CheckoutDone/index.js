@@ -12,21 +12,24 @@ const CheckoutDone = (props) => {
   const [infoPayment, setInfoPayment] = useState({})
   const [infoCart, setInfoCart] = useState({})
 
-  useEffect(async () => {
-    const { data } = await api.get('v2/5b15c4923100004a006f3c07')
-    setProductItems(data.items)
-    setInfoCart(props.location.state.data)
-    console.log(props.location.state.data)
-    console.log(infoCart)
-    const { subTotal, shippingTotal, discount, total } = data
+  useEffect(() => {
+    getDataDone()
 
-    setInfoPayment({
-      subTotal,
-      shippingTotal,
-      discount,
-      total
-    })
-  }, [])
+    async function getDataDone() {
+      const { data } = await api.get('v2/5b15c4923100004a006f3c07')
+      setProductItems(data.items)
+      setInfoCart(props.location.state.data)
+
+      const { subTotal, shippingTotal, discount, total } = data
+
+      setInfoPayment({
+        subTotal,
+        shippingTotal,
+        discount,
+        total
+      })
+    }
+  }, [setInfoPayment])
 
   return (
     <>

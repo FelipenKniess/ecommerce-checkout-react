@@ -1,6 +1,4 @@
-﻿import { ValidationError } from 'yup'
-
-export default function getValidationErrors(err) {
+﻿export default function getValidationErrors(err) {
   const validationErrors = {}
 
   err.inner.forEach((error) => {

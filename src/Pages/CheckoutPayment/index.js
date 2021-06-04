@@ -16,18 +16,22 @@ const CheckoutPayment = () => {
 
   const [infoPayment, setInfoPayment] = useState({})
 
-  useEffect(async () => {
-    const { data } = await api.get('v2/5b15c4923100004a006f3c07')
+  useEffect(() => {
+    getDataPayment()
 
-    const { subTotal, shippingTotal, discount, total } = data
+    async function getDataPayment() {
+      const { data } = await api.get('v2/5b15c4923100004a006f3c07')
 
-    setInfoPayment({
-      subTotal,
-      shippingTotal,
-      discount,
-      total
-    })
-  }, [infoPayment])
+      const { subTotal, shippingTotal, discount, total } = data
+
+      setInfoPayment({
+        subTotal,
+        shippingTotal,
+        discount,
+        total
+      })
+    }
+  }, [setInfoPayment])
 
   const formRef = useRef(null)
   const handleSubmit = useCallback(async (data) => {
